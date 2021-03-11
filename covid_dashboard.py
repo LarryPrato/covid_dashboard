@@ -250,11 +250,11 @@ with st.beta_container():
 		st.write(' ')	
 
 #Global vacination info##########################################################################
-df_vaccination = df_orig[["date", "location", "total_vaccinations", "population"]].copy()
+df_vaccination = df_orig[["date", "location", "people_vaccinated", "population"]].copy()
 df_vaccination = df_vaccination.dropna()
 df_vaccination = df_vaccination.drop_duplicates('location', keep = 'last')
-df_vaccination['perc_vacc'] = round(df_vaccination.total_vaccinations/df_vaccination.population, 4)
-perc_world_pop_vac = df_vaccination['perc_vacc'].iloc[-1]*100
+df_vaccination['perc_vacc'] = round(df_vaccination.people_vaccinated/df_vaccination.population, 4)
+perc_world_pop_vac = df_vaccination['perc_vacc'].iloc[-2]*100
 #st.write(df_vaccination)
 #st.write(perc_world_pop_vac)
 
@@ -286,6 +286,7 @@ with st.beta_container():
 		st.write(' ')
 		st.write(' ')
 		st.write(' ')
+		perc_world_pop_vac = round(perc_world_pop_vac, 4)
 		st.markdown(perc_world_pop_vac)
 
 
