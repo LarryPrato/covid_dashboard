@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Covid Dashboard", layout="wide")
 st.markdown('<style>body{background-color: #edf7ef;}</style>',unsafe_allow_html=True)
 
-@st.cache(allow_output_mutation=True, suppress_st_warning=True, ttl=30)
+@st.cache(allow_output_mutation=True, suppress_st_warning=True, ttl=60)
 def load_data():
     df = pd.read_csv('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv')
     return df
