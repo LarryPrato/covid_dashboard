@@ -16,9 +16,11 @@ def load_data():
 
 df_orig= load_data()
 df_orig['cases_per_100k'] = df_orig['total_cases']/df_orig['population']*100000
+df_orig['daily_new_cases_per_100k'] = round(df_orig['new_cases']/df_orig['population']*100000,0)
 df = df_orig.set_index('date')
 df['cases_per_100k'] = df['total_cases']/df['population']*100000
 df['deaths_per_100k'] = df['total_deaths']/df['population']*100000
+df['daily_new_cases_per_100k'] = df['new_cases']/df['population']*100000
 df['fatal_rate'] = df['total_deaths']/df['total_cases']
 df['vacinated_perc'] = round(df.people_vaccinated/df.population, 4)
 df['new_cases_MA14'] = round(df.new_cases.rolling(14).mean(), 0)
@@ -628,6 +630,18 @@ with st.beta_container():
 				margin=dict(l=20, b=10, t=40, pad=0), legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.01 ))
 		fig.update_yaxes(showline=True, linewidth=1, linecolor='white', zeroline=True, zerolinewidth=1, zerolinecolor='white', title_font=dict(size=14, family='Courier', color='white'))
 		st.plotly_chart(fig)
+		
+		#####Daily new cases per 100K
+		fig = go.Figure()
+		for c in options:
+		    dfp = df_orig[df_orig['location']==c].pivot(index='date', columns='location', values='daily_new_cases_per_100k') 
+		    fig.add_traces(go.Scatter(x=dfp.index, y=dfp[c], mode='lines', name = c))
+		    fig.update_layout(title={'text':"Daily new cases per 100,000 people for selected countries ", 'x': 0.5}, plot_bgcolor="#092834", paper_bgcolor = "#092834", height= 480, width=800, template="plotly_dark",
+				margin=dict(l=20, b=10, t=40, pad=0), legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.01 ))
+		fig.update_yaxes(showline=True, linewidth=1, linecolor='white', zeroline=True, zerolinewidth=1, zerolinecolor='white', title_font=dict(size=14, family='Courier', color='white'))
+		st.plotly_chart(fig)
+		#####
+		
 	with col3:
 		st.write(" ")
 
