@@ -5,6 +5,7 @@ import plotly.express as px
 import streamlit as st
 import matplotlib.pyplot as plt
 
+pip install --upgrade pip
 
 st.set_page_config(page_title="Covid Dashboard", layout="wide")
 st.markdown('<style>body{background-color: #edf7ef;}</style>',unsafe_allow_html=True)
