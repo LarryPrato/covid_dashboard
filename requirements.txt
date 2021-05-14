@@ -2,3 +2,4 @@ pandas
 numpy
 plotly
 matplotlib
+pip install --upgrade pip
